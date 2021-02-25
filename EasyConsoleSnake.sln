@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyConsoleSnake", "EasyConsoleSnake\EasyConsoleSnake.csproj", "{420F254E-39E6-4A37-B0FB-603E7C202CE1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{420F254E-39E6-4A37-B0FB-603E7C202CE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{420F254E-39E6-4A37-B0FB-603E7C202CE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{420F254E-39E6-4A37-B0FB-603E7C202CE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{420F254E-39E6-4A37-B0FB-603E7C202CE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D6ACB774-D608-4E33-B237-5E7FFDDBCD8B}
+	EndGlobalSection
+EndGlobal
