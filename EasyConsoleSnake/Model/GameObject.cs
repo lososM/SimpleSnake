@@ -8,28 +8,26 @@ namespace EasyConsoleSnake.Model
 {
     public class GameObject
     {
-        public Vector2 Posittion { get; set; }
-        public char form { get; set; }
-        public GameObject()
+        public Vector2 position { get; set; }
+        public char obj { get; }
+        public GameObject(char obj)
         {
-            Posittion = new Vector2();
-            form = '\0';
+            this.obj = obj;
+            position = new Vector2();
         }
-        public GameObject(char form)
+        public GameObject(char obj,int x,int y)
         {
-            this.form = form;
+            this.obj = obj;
+            position = new Vector2(x, y);
         }
+        public GameObject(char obj, Vector2 pos)
+        {
+            this.obj = obj;
+            position = pos;
+        }
+        public void Destroy()
+        {
 
-        public void TranslateTo(Vector2 point)
-        {
-            Posittion.x = point.x;
-            Posittion.y = point.y;
-        }
-        public void TranslateDirection(Vector2 dir)
-        {
-            dir.SignValues();
-            Posittion.x += dir.x;
-            Posittion.y += dir.y;
         }
     }
 }

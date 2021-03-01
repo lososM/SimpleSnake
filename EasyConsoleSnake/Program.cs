@@ -1,78 +1,42 @@
 ﻿using EasyConsoleSnake.Model;
+using EasyConsoleSnake.veiw;
 using System;
-using System.Timers;
+using System.Threading;
 
 namespace EasyConsoleSnake
 {
     class Program
     {
         static Timer timer;
-        static Game game = new Game();
+        
         static void Main(string[] args)
         {
+            ConsoleDestroyGO dest = new ConsoleDestroyGO();
+            Game game = new Game(dest);
 
-            var moveDir = new Vector2(1, 0);
-            while (true)
+
+            Console.SetWindowSize(game.Width,game.Height);
+            Console.SetBufferSize(game.Width,game.Height);
+            Console.CursorVisible = false;
+            //создать яблоко, нарисовать змейку
+            foreach (var wall in game.Walls)
             {
-                SetTimer();
-                game.snake.AddNode();
-                var input = Console.ReadKey();
-                switch (input.Key)
-                {
-                    case ConsoleKey.UpArrow:
-                        moveDir = new Vector2(0, 1);
-                        game.MoveSnake(moveDir);
-                        break;
-                    case ConsoleKey.Enter:
-                            return;
-                        break;
-                        
-                }
+                Console.SetCursorPosition(wall.position.x, wall.position.y);
+                Console.Write(wall.obj);
             }
+           // timer = new Timer(Update, null, 0, 200);
+            Console.ReadKey();
+
+
 
             
-            timer.Stop();
-            timer.Dispose();
-
             
 
         }
-        private static void SetTimer()
+         public static void Update(object obj)
         {
-            // Create a timer with a two second interval.
-            timer = new Timer(900);
-            // Hook up the Elapsed event for the timer. 
-            timer.Elapsed += OnTimedEvent;
-            timer.AutoReset = true;
-            timer.Enabled = true;
-        }
-        private static void OnTimedEvent(Object source, ElapsedEventArgs e)
-        {
-            Console.Clear();
-            char[,] matrix = new char[game.With, game.Height];
-            foreach (var node in game.snake.GetAll())
-            {
-                matrix[node.Posittion.x, node.Posittion.y] = node.form;
-            }
+            if (obj == null) Console.WriteLine("obj is null");
+        }   
 
-            var txt = "";
-            for (int i = 0; i < game.With; i++) txt += "--";
-            txt += "\n";
-
-
-            for (int y = 0; y < game.Height; y++)
-            {
-                txt += "|";
-                for (int x = 0; x < game.With; x++)
-                {
-                    txt += " " + matrix[x, y];
-                }
-
-                txt += "|\n";
-            }
-
-            for (int i = 0; i < game.With; i++) txt += "--";
-            Console.WriteLine(txt);
-        }
     }
 }

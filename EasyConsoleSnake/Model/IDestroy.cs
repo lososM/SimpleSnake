@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace EasyConsoleSnake.Model
 {
-    public class Fruit:GameObject
+    public interface IDestroy
     {
-        public Fruit()
-        {
-            form = 'o';
-        }
+        abstract void Destroy(GameObject obj);
+        void View(GameObject obj);
     }
 }
