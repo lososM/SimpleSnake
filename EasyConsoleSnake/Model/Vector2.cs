@@ -20,5 +20,20 @@ namespace EasyConsoleSnake.Model
             this.x = x;
             this.y = y;
         }
+        public static bool operator ==(Vector2 a,Vector2 b)
+        {
+            if (a.x == b.x && a.y == b.y) return true;
+            return false;
+        }
+        public static bool operator !=(Vector2 a, Vector2 b)
+        {
+            if (a.x == b.x && a.y == b.y) return false;
+            return true;
+        }
+        public static Vector2 operator +(Vector2 a, Vector2 b)
+        {
+            Vector2 newVal = new Vector2(a.x + b.x, a.y + b.y);
+            return newVal;
+        }
     }
 }

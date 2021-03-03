@@ -12,31 +12,62 @@ namespace EasyConsoleSnake.Model
         private GameObject prefFood;
         private GameObject prefWall;
         Random rnd;
-        IDestroy destroy { get; set; }
+        public IDestroy destroy { get;}
         public int Width { get; }
         public int Height { get; }
-        public List<GameObject> Foods { get; private set; }
+        public Snake curSnake { get; }
+        public GameObject Food { get; set; }
         
         public Game(IDestroy destroy)
         {
             //Собирать данные из ini файла
             Width = 80;
             Height = 30;
-            //walls
+          
             this.destroy = destroy;
             prefFood = new GameObject('F');
             prefWall = new GameObject('W');
+
             CreateWallsAround();
-            CreateFood();
-         
+           // CreateFood();
+            
+            var food = new GameObject('F', 40, 15);
+            Food = food;
+            destroy.View(food);
+            curSnake = new Snake(new Vector2(Width / 2, Height / 2), 3, this);
+          
+       
         }
- 
+        
         public void CreateFood()
         {
+            //исключить возможность создания еды в змейку или в стене
             rnd = new Random();
-            Vector2 pos = new Vector2(rnd.Next(0,Width),rnd.Next(0,Height));
+            Vector2 pos = new Vector2(rnd.Next(0, Width), rnd.Next(0, Height));
+            //проверить на столкновение с другими объектами
+            
+            while (isHitWalls(pos))
+            {
+                if (isHitWalls(pos)) pos = new Vector2(rnd.Next(0, Width), rnd.Next(0, Height));
+            }
+
+
             var newFood = new GameObject(prefFood.obj,pos);
+            Food = newFood;
             destroy.View(newFood);
+        }
+        bool isHitWalls(Vector2 position)
+        {
+            var result = false;
+            foreach (var wall in Walls)
+            {
+                if (wall.position == position)
+                {
+                    result = true;
+                }
+
+            }
+            return result;
         }
         private void CreateWallsAround()
         {
@@ -69,6 +100,11 @@ namespace EasyConsoleSnake.Model
                 Walls.Add(block);
 
             }
+        }
+        public void Update(object obj)
+        {
+            curSnake.Move();
+            if (Food == null) CreateFood();
         }
         public enum SystemFactoryFood
         {
