@@ -13,6 +13,7 @@ namespace EasyConsoleSnake.Model
         private Queue<GameObject> body;
         private Game curGame;
         private GameObject head;
+
         public Snake(Vector2 startPos, int startLong, Game game)
         {
             body = new Queue<GameObject>();
@@ -33,16 +34,18 @@ namespace EasyConsoleSnake.Model
             var nextHead = new GameObject('o', new Vector2(head.position.x + direction.x, head.position.y + direction.y));
             head = nextHead;
             body.Enqueue(head);
-            curGame.destroy.View(head);
+           
 
             //есть ли еда впереди?
             if(curGame.Food != null)
                 if(curGame.Food.position == head.position)
                 {
-                    curGame.Food = null;
+                    curGame.EatFood(curGame.Food);
+                    curGame.destroy.View(head);
                     return;
                 }
-                     
+
+            curGame.destroy.View(head);
             var s = body.Dequeue();
             curGame.destroy.Destroy(s);
                

@@ -17,6 +17,7 @@ namespace EasyConsoleSnake.veiw
 
         public void View(GameObject obj)
         {
+            //Не может превышать размер буффер консоли
             Console.SetCursorPosition(obj.position.x, obj.position.y);
             Console.Write(obj.obj);
         }
