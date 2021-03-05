@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace EasyConsoleSnake.Model
 {
+    public delegate void EatFood(GameObject food);
     public class Game
     {
-        public static int WIDTH { get; private set; } = 90;
+        public EatFood eatFood;
+        public static int WIDTH { get; private set; } = 80;
         public static int HEIGHT { get; private set; } = 30;
         public const char VIEW_FOOD = 'F';
         public const char VIEW_WALL = 'W';
@@ -17,28 +19,34 @@ namespace EasyConsoleSnake.Model
         public GameObject[,] Walls { get; private set; }//двухмерный массив?
         public IDestroy destroy { get; }
         public Snake curSnake { get; }
-        public GameObject Food { get; private set; }
+
+        //Food have calories?
+        public GameObject[,] Foods { get; private set; }
+        public int CountFood { get; private set; }
+        //как гарантировать, что будет сделана правильная еда?
         private IFactoryFood factoryFood { get; }
         public int Score { get; private set; }
-
+        
         public Game(IDestroy destroy)
         {
             //Собирать данные из ini файла
             //change width and height
-          
+            Foods = new GameObject[WIDTH, HEIGHT];
+            Walls = new GameObject[WIDTH, HEIGHT];
+            eatFood += AddScoreAndRemoveFood;
             this.destroy = destroy;
-            factoryFood = new EatToSpawnFood();
+            factoryFood = new SpawnFoodForever(this,20);
             CreateWallsAround();
             // CreateFood();
-            
-            var food = new GameObject(VIEW_FOOD, 40, 15);
-            Food = food;
-            destroy.View(food);
+           
+            var newFood = new GameObject(VIEW_FOOD, 30, 15);
+            AddFood(newFood);
+
             curSnake = new Snake(new Vector2(WIDTH / 2, HEIGHT / 2), 3, this);
             Score = 0;
        
         }
-      
+        //public void GenereateRndFood?
         public bool isHitWalls(Vector2 position)
         {
             var result = false;
@@ -50,15 +58,23 @@ namespace EasyConsoleSnake.Model
             }      
             return result;
         }
-        public void EatFood(GameObject food)
+        public void AddFood(GameObject food)
         {
-            //Search this food
-            Food = null;
+            //validation food
+            Foods[food.position.x, food.position.y] = food;
+            destroy.View(food);
+            CountFood++;
+
+        }
+       private void AddScoreAndRemoveFood(GameObject gamObj)
+        {
             Score++;
+            Foods[gamObj.position.x, gamObj.position.y] = null;
+            CountFood--;
+            destroy.Destroy(gamObj);
         }
         private void CreateWallsAround()
         {
-            Walls = new GameObject[WIDTH,HEIGHT];
             Vector2 dir = new Vector2(1, 0);
             Vector2 startPos = new Vector2(0, 0);
             CreateWall(dir , startPos, WIDTH);
@@ -89,14 +105,12 @@ namespace EasyConsoleSnake.Model
                
             }
         }
+        //Событие, которое происходит постоянно
         public void Update(object obj)
         {
             curSnake.Move();
-            if(factoryFood.SpawnFood(this,out GameObject food))
-            {
-                Food = food;
-                destroy.View(Food);
-            }
+            factoryFood.SpawnFood();
+            
         }
     }
 }

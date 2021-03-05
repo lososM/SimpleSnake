@@ -10,25 +10,40 @@ namespace EasyConsoleSnake.FactoryFood
     public class EatToSpawnFood:IFactoryFood
     {
         Random rnd = new Random();
-        public bool SpawnFood(Game game,out GameObject food)
+        bool Active = false;
+        Game game;
+        bool OneFood = false;
+        public EatToSpawnFood(Game game)
         {
-            if (game.Food == null)
-            {
-                Vector2 pos = new Vector2(rnd.Next(0, Game.WIDTH), rnd.Next(0, Game.HEIGHT));
-
-                while (game.isHitWalls(pos))
-                {
-                    if (game.isHitWalls(pos)) pos = new Vector2(rnd.Next(0, Game.WIDTH), rnd.Next(0, Game.HEIGHT));
-                }
-                var newFood = new GameObject(Game.VIEW_FOOD, pos);
-                food = newFood;
-                return true; 
-            }
-            else
-            {
-                food = null;
-                return false;
-            }
+            this.game = game;
         }
+        public void SpawnFood()
+        {
+            //Если не подписан на делегат, то подпишись
+            if (!Active) game.eatFood += SpawnFood;
+        }
+        public void SpawnFood(GameObject food)
+        {
+            if(game.CountFood <= 0)
+            {
+                Vector2 pos = GeneratePosition();
+
+                var newFood = new GameObject(Game.VIEW_FOOD, pos);
+                game.AddFood(newFood);
+            }
+            
+        }
+        private Vector2 GeneratePosition()
+        {
+            Vector2 resPos = new Vector2(rnd.Next(0, Game.WIDTH), rnd.Next(0, Game.HEIGHT));
+
+            while (game.isHitWalls(resPos))
+            {
+                //what?
+                if (game.isHitWalls(resPos)) resPos = new Vector2(rnd.Next(0, Game.WIDTH), rnd.Next(0, Game.HEIGHT));
+            }
+            return resPos;
+        }
+
     }
 }

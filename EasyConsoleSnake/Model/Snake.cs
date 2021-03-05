@@ -8,6 +8,7 @@ namespace EasyConsoleSnake.Model
 {
     public class Snake
     {
+        const char NODE = 'o';
         private Vector2 direction;
         public Dir dir { get; set; }
         private Queue<GameObject> body;
@@ -22,7 +23,7 @@ namespace EasyConsoleSnake.Model
 
             for (int x = -startLong; x < 0; x++)
             {
-                var node = new GameObject('o', startPos.x + x, startPos.y);
+                var node = new GameObject(NODE, startPos.x + x, startPos.y);
                 head = node;
                 body.Enqueue(node);
                 curGame.destroy.View(node);
@@ -32,20 +33,26 @@ namespace EasyConsoleSnake.Model
         public void Move()
         {
             //создать голову на основе предыдущей и добавить её перед головой
-            var nextHead = new GameObject('o', new Vector2(head.position.x + direction.x, head.position.y + direction.y));
+            var nextHead = new GameObject(NODE, new Vector2(head.position.x + direction.x, head.position.y + direction.y));
             head = nextHead;
             body.Enqueue(head);
-           
 
             //есть ли еда впереди?
-            if(curGame.Food != null)
-                if(curGame.Food.position == head.position)
-                {
-                    curGame.EatFood(curGame.Food);
-                    curGame.destroy.View(head);
-                    return;
-                }
-
+            if(curGame.Foods[head.position.x, head.position.y]!=null)
+            {
+                var tempFood = curGame.Foods[head.position.x, head.position.y];
+                if (tempFood != null)
+                    if (tempFood.position == head.position)
+                    {
+                        //   EatFood.
+                        // 
+                        curGame.eatFood(tempFood);
+                        curGame.destroy.View(head);
+                        return;
+                    }
+            }
+          
+        
             curGame.destroy.View(head);
             var s = body.Dequeue();
             curGame.destroy.Destroy(s);

@@ -21,7 +21,7 @@ namespace EasyConsoleSnake
             //    Console.Write(wall.obj);
             //}
             game = new Game(dest);
-            timer = new Timer(game.Update, null, 0, 200);
+            timer = new Timer(game.Update, null, 0, 100);
             GetDirection();
         }
 

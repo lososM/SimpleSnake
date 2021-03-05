@@ -8,7 +8,7 @@ namespace EasyConsoleSnake.Model
 {
     public interface IDestroy
     {
-        abstract void Destroy(GameObject obj);
+        void Destroy(GameObject obj);
         void View(GameObject obj);
     }
 }

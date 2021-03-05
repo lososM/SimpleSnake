@@ -9,7 +9,7 @@ namespace EasyConsoleSnake.FactoryFood
 {
     public interface IFactoryFood
     {
-        public bool SpawnFood(Game game,out GameObject food);
+        public void SpawnFood();
         
     }
 }
