@@ -9,58 +9,50 @@ namespace EasyConsoleSnake
     {
         static Timer timer;
         static ConsoleDestroyGO dest = new ConsoleDestroyGO();
-        static Game game = new Game(dest);
+        static Game game ;
         static void Main(string[] args)
         {
-            
-           
-
-
-            Console.SetWindowSize(game.Width,game.Height);
-            Console.SetBufferSize(game.Width,game.Height);
+            Console.SetWindowSize(Game.WIDTH, Game.HEIGHT);
+            Console.SetBufferSize(Game.WIDTH, Game.HEIGHT);
             Console.CursorVisible = false;
-            //создать яблоко, нарисовать змейку
-            foreach (var wall in game.Walls)
-            {
-                Console.SetCursorPosition(wall.position.x, wall.position.y);
-                Console.Write(wall.obj);
-            }
-             timer = new Timer(game.Update, null, 0, 200);
-           // Update(game);
+            //foreach (var wall in game.Walls)
+            //{
+            //    Console.SetCursorPosition(wall.position.x, wall.position.y);
+            //    Console.Write(wall.obj);
+            //}
+            game = new Game(dest);
+            timer = new Timer(game.Update, null, 0, 200);
+            GetDirection();
+        }
+
+        private static void GetDirection()
+        {
             while (true)
             {
                 var input = Console.ReadKey(false);
                 //выбрать направление
                 //изменить направление змейки
                 ConsoleKey inputDir = input.Key;
+                
                 switch (inputDir)
                 {
                     case ConsoleKey.UpArrow:
-                        game.curSnake.Roatate(Dir.Up);
+                      
+                            game.curSnake.Roatate(Dir.Up);
                         break;
                     case ConsoleKey.RightArrow:
-                        game.curSnake.Roatate(Dir.Right);
+                       
+                            game.curSnake.Roatate(Dir.Right);
                         break;
                     case ConsoleKey.LeftArrow:
-                        game.curSnake.Roatate(Dir.Left);
+
+                            game.curSnake.Roatate(Dir.Left);
                         break;
                     case ConsoleKey.DownArrow:
-                        game.curSnake.Roatate(Dir.Down);
+                            game.curSnake.Roatate(Dir.Down);
                         break;
                 }
             }
-            Console.ReadKey();
-
-
-
-            
-            
-
         }
-         public static void Update(object obj)
-        {
-           // game.Update();
-        }   
-
     }
 }

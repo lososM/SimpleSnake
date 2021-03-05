@@ -8,8 +8,8 @@ namespace EasyConsoleSnake.Model
 {
     public class Vector2
     {
-        public int x { get; }
-        public int y { get; }
+        public int x { get; set; }
+        public int y { get; set; }
         public Vector2()
         {
             x = 0;
@@ -32,8 +32,23 @@ namespace EasyConsoleSnake.Model
         }
         public static Vector2 operator +(Vector2 a, Vector2 b)
         {
-            Vector2 newVal = new Vector2(a.x + b.x, a.y + b.y);
+            Vector2 newVal = new Vector2(a.x + b.x, a.y + b.y); 
             return newVal;
+        }
+        public override int GetHashCode()
+        {
+            string temp = x.ToString() + y.ToString();
+            return int.Parse(temp);
+
+        }
+        private int ShiftWarp(int value,int positions)//current hashcode, 2 bits
+        {
+            positions = positions & 0x1f;//validation :)
+            //переводим в uint для побитового сдвига вправо, будет выполнен логический сдвиг
+            uint curNum = BitConverter.ToUInt32(BitConverter.GetBytes(value));
+            uint wrap = curNum >> positions;
+            return BitConverter.ToInt32(BitConverter.GetBytes((curNum << positions) | wrap)); 
+            
         }
     }
 }

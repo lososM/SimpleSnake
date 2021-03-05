@@ -14,13 +14,13 @@ namespace EasyConsoleSnake.FactoryFood
         {
             if (game.Food == null)
             {
-                Vector2 pos = new Vector2(rnd.Next(0, game.Width), rnd.Next(0, game.Height));
+                Vector2 pos = new Vector2(rnd.Next(0, Game.WIDTH), rnd.Next(0, Game.HEIGHT));
 
                 while (game.isHitWalls(pos))
                 {
-                    if (game.isHitWalls(pos)) pos = new Vector2(rnd.Next(0, game.Width), rnd.Next(0, game.Height));
+                    if (game.isHitWalls(pos)) pos = new Vector2(rnd.Next(0, Game.WIDTH), rnd.Next(0, Game.HEIGHT));
                 }
-                var newFood = new GameObject(game.prefFood.obj, pos);
+                var newFood = new GameObject(Game.VIEW_FOOD, pos);
                 food = newFood;
                 return true; 
             }

@@ -35,5 +35,9 @@ namespace EasyConsoleSnake.Model
             if (position == gamObj.position) return true;
             return false;
         }
+        public override int GetHashCode()
+        {
+            return position.GetHashCode();
+        }
     }
 }

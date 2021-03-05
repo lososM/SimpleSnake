@@ -16,6 +16,7 @@ namespace EasyConsoleSnake.Model
 
         public Snake(Vector2 startPos, int startLong, Game game)
         {
+            direction = new Vector2(0, 0);
             body = new Queue<GameObject>();
             curGame = game;
 
@@ -57,16 +58,20 @@ namespace EasyConsoleSnake.Model
             switch (dir)
             {
                 case Dir.Right:
-                    direction = new Vector2(1, 0);
+                    direction.x = 1;
+                    direction.y = 0;
                     break;
                 case Dir.Left:
-                    direction = new Vector2(-1, 0);
+                    direction.x = -1;
+                    direction.y = 0;
                     break;
                 case Dir.Up:
-                    direction = new Vector2(0, -1);
+                    direction.x = 0;
+                    direction.y = -1;
                     break;
                 case Dir.Down:
-                    direction = new Vector2(0, 1);
+                    direction.x = 0;
+                    direction.y = 1;
                     break;
             }
         }

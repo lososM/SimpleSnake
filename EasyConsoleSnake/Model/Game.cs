@@ -9,34 +9,32 @@ namespace EasyConsoleSnake.Model
 {
     public class Game
     {
-        public List<GameObject> Walls { get; private set; }
-        public GameObject prefFood { get; }
-        public GameObject prefWall { get; }
+        public static int WIDTH { get; private set; } = 90;
+        public static int HEIGHT { get; private set; } = 30;
+        public const char VIEW_FOOD = 'F';
+        public const char VIEW_WALL = 'W';
+
+        public GameObject[,] Walls { get; private set; }//двухмерный массив?
         public IDestroy destroy { get; }
-        public int Width { get; }
-        public int Height { get; }
         public Snake curSnake { get; }
         public GameObject Food { get; private set; }
         private IFactoryFood factoryFood { get; }
         public int Score { get; private set; }
-        
+
         public Game(IDestroy destroy)
         {
             //Собирать данные из ini файла
-            Width = 90;
-            Height = 30;
+            //change width and height
           
             this.destroy = destroy;
-            prefFood = new GameObject('F');
-            prefWall = new GameObject('W');
             factoryFood = new EatToSpawnFood();
             CreateWallsAround();
-           // CreateFood();
+            // CreateFood();
             
-            var food = new GameObject('F', 40, 15);
+            var food = new GameObject(VIEW_FOOD, 40, 15);
             Food = food;
             destroy.View(food);
-            curSnake = new Snake(new Vector2(Width / 2, Height / 2), 3, this);
+            curSnake = new Snake(new Vector2(WIDTH / 2, HEIGHT / 2), 3, this);
             Score = 0;
        
         }
@@ -44,14 +42,12 @@ namespace EasyConsoleSnake.Model
         public bool isHitWalls(Vector2 position)
         {
             var result = false;
-            foreach (var wall in Walls)
+            //position не должен превышать размер карты
+            foreach (var item in Walls)
             {
-                if (wall.position == position)
-                {
-                    result = true;
-                }
-
-            }
+                if(item != null)
+                    if (item.position == position) result = true;
+            }      
             return result;
         }
         public void EatFood(GameObject food)
@@ -62,20 +58,20 @@ namespace EasyConsoleSnake.Model
         }
         private void CreateWallsAround()
         {
-            Walls = new List<GameObject>();
+            Walls = new GameObject[WIDTH,HEIGHT];
             Vector2 dir = new Vector2(1, 0);
             Vector2 startPos = new Vector2(0, 0);
-            CreateWall(dir , startPos, Width);
+            CreateWall(dir , startPos, WIDTH);
 
-            startPos = new Vector2(0, Height-1);
-            CreateWall(dir, startPos, Width);
+            startPos = new Vector2(0, HEIGHT-1);
+            CreateWall(dir, startPos, WIDTH);
 
             dir = new Vector2(0, 1);
             startPos = new Vector2();
-            CreateWall(dir, startPos, Height);
+            CreateWall(dir, startPos, HEIGHT);
 
-            startPos = new Vector2(Width-1,0);
-            CreateWall(dir, startPos, Height);
+            startPos = new Vector2(WIDTH - 1,0);
+            CreateWall(dir, startPos, HEIGHT);
         }
         private void CreateWall(Vector2 dir, Vector2 StartPos, int mlong)
         {
@@ -83,13 +79,14 @@ namespace EasyConsoleSnake.Model
             {
                 GameObject block = null;
                 if(dir.y == 0)
-                    block = new GameObject(prefWall.obj, new Vector2((i + StartPos.x) * dir.x, StartPos.y));
+                    block = new GameObject(VIEW_WALL, new Vector2((i + StartPos.x) * dir.x, StartPos.y));
 
                 if(dir.x == 0)
-                    block = new GameObject(prefWall.obj, new Vector2(StartPos.x, (i + StartPos.y) * dir.y));
-
-                Walls.Add(block);
-
+                    block = new GameObject(VIEW_WALL, new Vector2(StartPos.x, (i + StartPos.y) * dir.y));
+                Walls[block.position.x, block.position.y] = block;
+                destroy.View(block);
+                //Walls.TryAdd(block.GetHashCode(), block);
+               
             }
         }
         public void Update(object obj)
