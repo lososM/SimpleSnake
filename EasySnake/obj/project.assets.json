@@ -1,30 +1,11 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {
-      "EasySnake/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "compile": {
-          "bin/placeholder/EasySnake.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/EasySnake.dll": {}
-        }
-      }
-    }
+    ".NETCoreApp,Version=v3.1": {}
   },
-  "libraries": {
-    "EasySnake/1.0.0": {
-      "type": "project",
-      "path": "../EasySnake/EasySnake.csproj",
-      "msbuildProject": "../EasySnake/EasySnake.csproj"
-    }
-  },
+  "libraries": {},
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": [
-      "EasySnake >= 1.0.0"
-    ]
+    ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
     "C:\\Users\\max\\.nuget\\packages\\": {}
@@ -32,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\max\\source\\repos\\EasyConsoleSnake\\EasyConsoleSnake\\EasySnakeCMD.csproj",
-      "projectName": "EasySnakeCMD",
-      "projectPath": "C:\\Users\\max\\source\\repos\\EasyConsoleSnake\\EasyConsoleSnake\\EasySnakeCMD.csproj",
+      "projectUniqueName": "C:\\Users\\max\\source\\repos\\EasyConsoleSnake\\EasySnake\\EasySnake.csproj",
+      "projectName": "EasySnake",
+      "projectPath": "C:\\Users\\max\\source\\repos\\EasyConsoleSnake\\EasySnake\\EasySnake.csproj",
       "packagesPath": "C:\\Users\\max\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\max\\source\\repos\\EasyConsoleSnake\\EasyConsoleSnake\\obj\\",
+      "outputPath": "C:\\Users\\max\\source\\repos\\EasyConsoleSnake\\EasySnake\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\max\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -52,11 +33,7 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {
-            "C:\\Users\\max\\source\\repos\\EasyConsoleSnake\\EasySnake\\EasySnake.csproj": {
-              "projectPath": "C:\\Users\\max\\source\\repos\\EasyConsoleSnake\\EasySnake\\EasySnake.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

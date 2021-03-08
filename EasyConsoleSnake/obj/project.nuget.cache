@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ijrru4MyVdR/hY8K+lzwNlL//nTJlOmrXleE2Sgs9bimYjmXElfLCSxCDgYW/Ny89e75jT04msneVFM8UGVFkg==",
+  "dgSpecHash": "Cfx9BiDukh5Wk9bAShFMOv5W7q/vyMIhZLX25khzPDjIcDPqUxE+CdrT/4i6ff7dvLvLsTWq24xhNJQJs4e2PA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\max\\source\\repos\\EasyConsoleSnake\\EasyConsoleSnake\\EasyConsoleSnake.csproj",
+  "projectFilePath": "C:\\Users\\max\\source\\repos\\EasyConsoleSnake\\EasyConsoleSnake\\EasySnakeCMD.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

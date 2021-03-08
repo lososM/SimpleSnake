@@ -1,0 +1,16 @@
+C:\Users\max\source\repos\EasyConsoleSnake\EasyConsoleSnake\bin\Debug\netcoreapp3.1\EasySnakeCMD.exe
+C:\Users\max\source\repos\EasyConsoleSnake\EasyConsoleSnake\bin\Debug\netcoreapp3.1\EasySnakeCMD.deps.json
+C:\Users\max\source\repos\EasyConsoleSnake\EasyConsoleSnake\bin\Debug\netcoreapp3.1\EasySnakeCMD.runtimeconfig.json
+C:\Users\max\source\repos\EasyConsoleSnake\EasyConsoleSnake\bin\Debug\netcoreapp3.1\EasySnakeCMD.runtimeconfig.dev.json
+C:\Users\max\source\repos\EasyConsoleSnake\EasyConsoleSnake\bin\Debug\netcoreapp3.1\EasySnakeCMD.dll
+C:\Users\max\source\repos\EasyConsoleSnake\EasyConsoleSnake\bin\Debug\netcoreapp3.1\EasySnakeCMD.pdb
+C:\Users\max\source\repos\EasyConsoleSnake\EasyConsoleSnake\bin\Debug\netcoreapp3.1\EasySnake.dll
+C:\Users\max\source\repos\EasyConsoleSnake\EasyConsoleSnake\bin\Debug\netcoreapp3.1\EasySnake.pdb
+C:\Users\max\source\repos\EasyConsoleSnake\EasyConsoleSnake\obj\Debug\netcoreapp3.1\EasySnakeCMD.csprojAssemblyReference.cache
+C:\Users\max\source\repos\EasyConsoleSnake\EasyConsoleSnake\obj\Debug\netcoreapp3.1\EasySnakeCMD.AssemblyInfoInputs.cache
+C:\Users\max\source\repos\EasyConsoleSnake\EasyConsoleSnake\obj\Debug\netcoreapp3.1\EasySnakeCMD.AssemblyInfo.cs
+C:\Users\max\source\repos\EasyConsoleSnake\EasyConsoleSnake\obj\Debug\netcoreapp3.1\EasySnakeCMD.csproj.CoreCompileInputs.cache
+C:\Users\max\source\repos\EasyConsoleSnake\EasyConsoleSnake\obj\Debug\netcoreapp3.1\EasySnakeCMD.csproj.CopyComplete
+C:\Users\max\source\repos\EasyConsoleSnake\EasyConsoleSnake\obj\Debug\netcoreapp3.1\EasySnakeCMD.dll
+C:\Users\max\source\repos\EasyConsoleSnake\EasyConsoleSnake\obj\Debug\netcoreapp3.1\EasySnakeCMD.pdb
+C:\Users\max\source\repos\EasyConsoleSnake\EasyConsoleSnake\obj\Debug\netcoreapp3.1\EasySnakeCMD.genruntimeconfig.cache

@@ -1,0 +1,9 @@
+C:\Users\max\source\repos\EasyConsoleSnake\EasySnake\bin\Debug\netcoreapp3.1\EasySnake.deps.json
+C:\Users\max\source\repos\EasyConsoleSnake\EasySnake\bin\Debug\netcoreapp3.1\EasySnake.dll
+C:\Users\max\source\repos\EasyConsoleSnake\EasySnake\bin\Debug\netcoreapp3.1\EasySnake.pdb
+C:\Users\max\source\repos\EasyConsoleSnake\EasySnake\obj\Debug\netcoreapp3.1\EasySnake.csprojAssemblyReference.cache
+C:\Users\max\source\repos\EasyConsoleSnake\EasySnake\obj\Debug\netcoreapp3.1\EasySnake.AssemblyInfoInputs.cache
+C:\Users\max\source\repos\EasyConsoleSnake\EasySnake\obj\Debug\netcoreapp3.1\EasySnake.AssemblyInfo.cs
+C:\Users\max\source\repos\EasyConsoleSnake\EasySnake\obj\Debug\netcoreapp3.1\EasySnake.csproj.CoreCompileInputs.cache
+C:\Users\max\source\repos\EasyConsoleSnake\EasySnake\obj\Debug\netcoreapp3.1\EasySnake.dll
+C:\Users\max\source\repos\EasyConsoleSnake\EasySnake\obj\Debug\netcoreapp3.1\EasySnake.pdb
