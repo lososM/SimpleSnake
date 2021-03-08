@@ -41,14 +41,5 @@ namespace EasyConsoleSnake.Model
             return int.Parse(temp);
 
         }
-        private int ShiftWarp(int value,int positions)//current hashcode, 2 bits
-        {
-            positions = positions & 0x1f;//validation :)
-            //переводим в uint для побитового сдвига вправо, будет выполнен логический сдвиг
-            uint curNum = BitConverter.ToUInt32(BitConverter.GetBytes(value));
-            uint wrap = curNum >> positions;
-            return BitConverter.ToInt32(BitConverter.GetBytes((curNum << positions) | wrap)); 
-            
-        }
     }
 }

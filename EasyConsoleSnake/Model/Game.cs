@@ -1,4 +1,5 @@
-﻿using EasyConsoleSnake.FactoryFood;
+﻿using EasyConsoleSnake.Controller;
+using EasyConsoleSnake.FactoryFood;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,11 @@ namespace EasyConsoleSnake.Model
         public const char VIEW_FOOD = 'F';
         public const char VIEW_WALL = 'W';
 
+        public bool Lose { get; set; }
+
         public GameObject[,] Walls { get; private set; }//двухмерный массив?
         public IDestroy destroy { get; }
-        public Snake curSnake { get; }
+        public SnakeController Snake { get; }
 
         //Food have calories?
         public GameObject[,] Foods { get; private set; }
@@ -29,22 +32,29 @@ namespace EasyConsoleSnake.Model
         
         public Game(IDestroy destroy)
         {
+            Lose = false;
             //Собирать данные из ini файла
             //change width and height
             Foods = new GameObject[WIDTH, HEIGHT];
             Walls = new GameObject[WIDTH, HEIGHT];
             eatFood += AddScoreAndRemoveFood;
             this.destroy = destroy;
-            factoryFood = new SpawnFoodForever(this,20);
+            factoryFood = new EatToSpawnFood(this);
             CreateWallsAround();
             // CreateFood();
            
             var newFood = new GameObject(VIEW_FOOD, 30, 15);
             AddFood(newFood);
 
-            curSnake = new Snake(new Vector2(WIDTH / 2, HEIGHT / 2), 3, this);
+            Snake = new SnakeController(3, this);
             Score = 0;
        
+        }
+        public void GameOver()
+        {
+            Lose = true;
+        }
+        public void Restart() { 
         }
         //public void GenereateRndFood?
         public bool isHitWalls(Vector2 position)
@@ -68,10 +78,10 @@ namespace EasyConsoleSnake.Model
         }
        private void AddScoreAndRemoveFood(GameObject gamObj)
         {
-            Score++;
             Foods[gamObj.position.x, gamObj.position.y] = null;
-            CountFood--;
             destroy.Destroy(gamObj);
+            Score++;
+            CountFood--;
         }
         private void CreateWallsAround()
         {
@@ -108,8 +118,12 @@ namespace EasyConsoleSnake.Model
         //Событие, которое происходит постоянно
         public void Update(object obj)
         {
-            curSnake.Move();
-            factoryFood.SpawnFood();
+            if (!Lose)
+            {
+                Snake.Move();
+                factoryFood.SpawnFood();
+            }
+           
             
         }
     }

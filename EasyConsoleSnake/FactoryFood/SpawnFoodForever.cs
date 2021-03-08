@@ -47,9 +47,8 @@ namespace EasyConsoleSnake.FactoryFood
             Vector2 resPos = new Vector2(rnd.Next(0, Game.WIDTH), rnd.Next(0, Game.HEIGHT));
 
             while (game.isHitWalls(resPos))
-            {
-                //what?
-                if (game.isHitWalls(resPos)) resPos = new Vector2(rnd.Next(0, Game.WIDTH), rnd.Next(0, Game.HEIGHT));
+            {                
+                resPos = new Vector2(rnd.Next(0, Game.WIDTH), rnd.Next(0, Game.HEIGHT));
             }
             return resPos;
         }
