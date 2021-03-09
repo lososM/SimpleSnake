@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using EasySnake.Model;
+using System.Collections;
 
 namespace EasyConsoleSnake.Model
 {
@@ -22,7 +23,7 @@ namespace EasyConsoleSnake.Model
         {
             if(Head == null)
             {
-                Head = new Node(new Vector2(GameController.WIDTH/2,GameController.HEIGHT/2));
+                Head = new Node(new Vector2(Game.WIDTH/2, Game.HEIGHT/2));
                 Count = 1;
                 return Head.data;
             }
@@ -30,11 +31,11 @@ namespace EasyConsoleSnake.Model
             
             var node = new Node(Head.data.position + direction);
 
-            if (node.data.position.x <= -1) node.data.position.x = GameController.WIDTH-1;
-            if (node.data.position.x >= GameController.WIDTH) node.data.position.x = 0;
+            if (node.data.position.x <= -1) node.data.position.x = Game.WIDTH-1;
+            if (node.data.position.x >= Game.WIDTH) node.data.position.x = 0;
             
-            if (node.data.position.y <= -1) node.data.position.y = GameController.HEIGHT-1;
-            if (node.data.position.y >= GameController.HEIGHT) node.data.position.y = 0;
+            if (node.data.position.y <= -1) node.data.position.y = Game.HEIGHT-1;
+            if (node.data.position.y >= Game.HEIGHT) node.data.position.y = 0;
 
             Head.nextNode = node;
             if (Tail == null) Tail = Head;

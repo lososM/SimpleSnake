@@ -3,31 +3,31 @@ using System;
 using System.Threading;
 using EasyConsoleSnake.Model;
 using EasyConsoleSnake.veiw;
+using EasySnake.Model;
 
 namespace EasyConsoleSnake
 {
     class Program
     {
         static Timer timer;
-        static ConsoleCMDView viewCMD = new ConsoleCMDView();
-        static GameController game ;
+
         static void Main(string[] args)
         {
-            Console.SetWindowSize(GameController.WIDTH, GameController.HEIGHT);
-            Console.SetBufferSize(GameController.WIDTH, GameController.HEIGHT);
+
+            Game.SetValue(50, 30);
+            Console.SetWindowSize(Game.WIDTH, Game.HEIGHT);
+            Console.SetBufferSize(Game.WIDTH, Game.HEIGHT);
             Console.CursorVisible = false;
-            //foreach (var wall in game.Walls)
-            //{
-            //    Console.SetCursorPosition(wall.position.x, wall.position.y);
-            //    Console.Write(wall.obj);
-            //}
-            game = new GameController(viewCMD);
-            timer = new Timer(game.Update, null, 0, 100);
-            //game.Update(null);
-            GetDirection();
+
+            ConsoleCMDView viewCMD = new ConsoleCMDView();
+            GameController gameController = new GameController(viewCMD);
+
+            timer = new Timer(gameController.Update, null, 0, 100);
+
+            GetDirection(gameController);
         }
 
-        private static void GetDirection()
+        private static void GetDirection(GameController gameController)
         {
             while (true)
             {
@@ -38,16 +38,16 @@ namespace EasyConsoleSnake
                 switch (inputDir)
                 {
                     case ConsoleKey.UpArrow:
-                            game.Snake.Roatate(Dir.Up);
+                        gameController.Snake.Roatate(Dir.Up);
                         break;
                     case ConsoleKey.RightArrow:
-                            game.Snake.Roatate(Dir.Right);
+                        gameController.Snake.Roatate(Dir.Right);
                         break;
                     case ConsoleKey.LeftArrow:
-                            game.Snake.Roatate(Dir.Left);
+                        gameController.Snake.Roatate(Dir.Left);
                         break;
                     case ConsoleKey.DownArrow:
-                            game.Snake.Roatate(Dir.Down);
+                        gameController.Snake.Roatate(Dir.Down);
                         break;
                 }
             }
