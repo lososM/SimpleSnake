@@ -18,20 +18,23 @@ namespace EasyConsoleSnake.Model
             direction = new Vector2();
         }
        
- 
-
         public GameObject AddNextHead()
         {
-            //create new head + dir
             if(Head == null)
             {
                 Head = new Node(new Vector2(GameController.WIDTH/2,GameController.HEIGHT/2));
                 Count = 1;
                 return Head.data;
             }
-
+            //если выходит за границы карты создать с другой стороны
+            
             var node = new Node(Head.data.position + direction);
-            //curGame.destroy.View(node.data);
+
+            if (node.data.position.x <= -1) node.data.position.x = GameController.WIDTH-1;
+            if (node.data.position.x >= GameController.WIDTH) node.data.position.x = 0;
+            
+            if (node.data.position.y <= -1) node.data.position.y = GameController.HEIGHT-1;
+            if (node.data.position.y >= GameController.HEIGHT) node.data.position.y = 0;
 
             Head.nextNode = node;
             if (Tail == null) Tail = Head;

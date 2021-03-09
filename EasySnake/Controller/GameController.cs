@@ -22,7 +22,6 @@ namespace EasyConsoleSnake.Model
         //Food have calories?
         public GameObject[,] Foods { get; private set; }
         public int CountFood { get; private set; }
-        //как гарантировать, что будет сделана правильная еда?
         private IFactoryFood factoryFood { get; }
         public int Score { get; private set; }
         
@@ -36,7 +35,7 @@ namespace EasyConsoleSnake.Model
             eatFood += AddScoreAndRemoveFood;
             this.viewController = viewController;
             factoryFood = new EatToSpawnFood(this);
-            CreateWallsAround();
+           // CreateWallsAround();
             // CreateFood();
            
             var newFood = new GameObject(VIEW_FOOD, 30, 15);

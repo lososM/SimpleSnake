@@ -13,10 +13,6 @@ namespace EasyConsoleSnake
         static GameController game ;
         static void Main(string[] args)
         {
-            Vector2 a = new Vector2(5,3);
-            Vector2 b = new Vector2(1,5);
-            var res = a + b;
-            Console.WriteLine(a+b);
             Console.SetWindowSize(GameController.WIDTH, GameController.HEIGHT);
             Console.SetBufferSize(GameController.WIDTH, GameController.HEIGHT);
             Console.CursorVisible = false;
