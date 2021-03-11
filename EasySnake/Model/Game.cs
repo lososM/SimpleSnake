@@ -7,7 +7,6 @@
 
         public static int WIDTH { get; private set; } 
         public static int HEIGHT { get; private set; }
-        //когда поток запущен, получать данные из GameSettings.json
         public static void SetValue(int width,int height)
         {
             WIDTH = width;

@@ -5,12 +5,11 @@ using System;
 
 namespace EasyConsoleSnake.Model
 {
-	//event Update
 	public class GameController
 	{
 
-
 		public event EventHandler EventUpdate = delegate { };
+		public event EventHandler EventGameOver = delegate { };
 
 		public SnakeController Snake { get; }
 
@@ -66,6 +65,7 @@ namespace EasyConsoleSnake.Model
 		public void GameOver()
 		{
 			Lose = true;
+			EventGameOver(this,null);
 		}
 		public void Restart() { 
 		}

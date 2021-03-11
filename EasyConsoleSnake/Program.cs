@@ -25,6 +25,12 @@ namespace EasyConsoleSnake
                 Console.SetCursorPosition(2, Game.HEIGHT + 1);
                 Console.Write(gameController.Score);
             };
+            gameController.EventGameOver += delegate
+            {
+              //  Console.Clear();
+                Console.SetCursorPosition(Game.WIDTH / 2 - 5, Game.HEIGHT / 2 );
+                Console.Write("Game Over");
+            };
 
             new Timer(gameController.Update, null, 0, 100);
             GetDirection(gameController);
