@@ -29,6 +29,13 @@
             Vector2 newVal = new Vector2(a.x + b.x, a.y + b.y); 
             return newVal;
         }
+        public override bool Equals(object obj)
+        {
+            if(obj is Vector2 vec)
+                if (x == vec.x && y == vec.y) return true;
+
+            return false;
+        }
         public override int GetHashCode()
         {
             string temp = x.ToString() + y.ToString();

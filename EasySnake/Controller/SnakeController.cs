@@ -1,48 +1,61 @@
 ﻿using EasyConsoleSnake.Model;
+using EasySnake.Model;
+using System;
 
 namespace EasyConsoleSnake.Controller
 {
     public class SnakeController
     {
+        public event EventHandler<EventArgsEat> Eat = delegate { };
         public Snake snake { get; }
-        GameController game { get; }
-        public SnakeController(int sn_long,GameController game)
+        GameController gameController { get; }
+        public SnakeController(int sn_long,GameController gameController)
         {
-            this.game = game;
+            this.gameController = gameController;
             snake = new Snake();
 
             Roatate(Dir.Right);
 
             for (int x = 0; x < sn_long; x++)
             {
-                game.viewController.View(snake.AddNextHead());
+                gameController.viewController.View(snake.AddNextHead());
             }
         }
         public void Move() {
 
             var nextHead = snake.AddNextHead();
 
-            //hit wall
-            if (game.isHitWalls(nextHead.position))
+            #region hit wall
+            if (gameController.isHitWalls(nextHead.position))
             {
-                game.GameOver();
-            }
-            //hit snake
-            foreach (Node node in snake)
-            {
-               if (node != snake.Head && node.data.position == nextHead.position) game.GameOver();
-            }
-            //hit food
-            if (game.Foods[nextHead.position.x, nextHead.position.y] != null)
-            {
-                var tempFood = game.Foods[nextHead.position.x, nextHead.position.y];
-                game.eatFood(tempFood);
-                game.viewController.View(nextHead);
+                gameController.GameOver();
                 return;
             }
-            //default move
-            game.viewController.View(nextHead);
-            game.viewController.Destroy(snake.RemoveTail());
+            #endregion
+            #region hit snake
+            foreach (Node node in snake)
+            {
+                if (node != snake.Head && node.gamObj.position == nextHead.position) {
+                    gameController.GameOver();
+                    return;
+                }
+            }
+            #endregion
+            #region hit food
+            if (gameController.Foods[nextHead.position.x, nextHead.position.y] != null)
+            {
+                var tempFood = gameController.Foods[nextHead.position.x, nextHead.position.y];
+
+                EventArgsEat args = new EventArgsEat() { food = tempFood };
+                Eat(gameController, args);
+
+                gameController.viewController.View(nextHead);
+                return;
+            }
+            #endregion
+
+            gameController.viewController.View(nextHead);
+            gameController.viewController.Destroy(snake.RemoveTail());
         }
         public void Roatate(Dir dir)
         {

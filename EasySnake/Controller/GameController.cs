@@ -1,53 +1,67 @@
 ﻿using EasyConsoleSnake.Controller;
-using EasyConsoleSnake.FactoryFood;
+using EasyConsoleSnake.FactoryFoods;
 using EasySnake.Model;
 using System;
-using System.IO;
-using System.Text.Json;
 
 namespace EasyConsoleSnake.Model
 {
-	public delegate void EatFood(GameObject food);
 	//event Update
 	public class GameController
 	{
-		public const char VIEW_FOOD = 'F';
-		public const char VIEW_WALL = 'W';
 
-		public EatFood eatFood;
+
+		public event EventHandler EventUpdate = delegate { };
+
 		public SnakeController Snake { get; }
 
 		public GameObject[,] Walls { get; private set; }
-		public GameObject[,] Foods { get; private set; }
-
-		private IFactoryFood factoryFood { get; }
+		public Food[,] Foods { get; private set; }
 
 		public IViewController viewController { get; }
-
 
 		public int CountFood { get; private set; }
 		public int Score { get; private set; }
 		public bool Lose { get; private set; } = false;
+		//Разные условия победы
 
-		public GameController(IViewController viewController)
+
+		public GameController(IViewController viewController,HowCreateFood createFood)
 		{
+			//хранить некоторые данные в Конфигурационном файле (стартовая длинна змейки)
+			//class or struct с настройками
 			this.viewController = viewController;
 
-			Foods = new GameObject[Game.WIDTH, Game.HEIGHT];
+			Foods = new Food[Game.WIDTH, Game.HEIGHT];
 			Walls = new GameObject[Game.WIDTH, Game.HEIGHT];
+			//CreateWallsAround();
+
 			Snake = new SnakeController(3, this);
-			
-			factoryFood = new EatToSpawnFood(this);
-
-			eatFood += AddScoreAndRemoveFood;
-			CreateWallsAround();
-		   
-			//Remove it
-			var newFood = new GameObject(VIEW_FOOD, 30, 15);
-			AddFood(newFood);
-
+			Snake.Eat += AddScoreAndRemoveFood;
 
 			Score = 0;
+
+			if (createFood == HowCreateFood.EatToSpawn)
+            {
+				IFactoryFood tempFactoryFood = new EatToSpawnFood();
+				tempFactoryFood.StartFactoryFood(this);
+			}
+			else if(createFood == HowCreateFood.SpawnForever)
+            {
+				IFactoryFood tempFactoryFood = new SpawnFoodForever();
+				tempFactoryFood.StartFactoryFood(this);
+			}
+
+
+		}
+
+		//Событие, которое происходит постоянно
+		public void Update(object obj)
+		{
+			if (!Lose)
+			{
+				EventUpdate(this,null);
+				Snake.Move();
+			}
 		}
 		public void GameOver()
 		{
@@ -55,7 +69,6 @@ namespace EasyConsoleSnake.Model
 		}
 		public void Restart() { 
 		}
-		//public void GenereateFood?
 		public bool isHitWalls(Vector2 position)
 		{
 			if ((position.x < 0 && position.x > Game.WIDTH) || 
@@ -70,19 +83,19 @@ namespace EasyConsoleSnake.Model
 			}      
 			return result;
 		}
-		public void AddFood(GameObject food)//(Food food)
+		public void AddFood(Food food)//(Food food)
 		{
 			//validation food
-			Foods[food.position.x, food.position.y] = food;
-			viewController.View(food);
+			Foods[food.gamObj.position.x, food.gamObj.position.y] = food;
+			viewController.View(food.gamObj);
 			CountFood++;
 
 		}
-	   private void AddScoreAndRemoveFood(GameObject gamObj)
+	   private void AddScoreAndRemoveFood(object sender,EventArgsEat eventArgs)
 		{
-			Foods[gamObj.position.x, gamObj.position.y] = null;
-			viewController.Destroy(gamObj);
-			Score++;
+			Foods[eventArgs.food.gamObj.position.x, eventArgs.food.gamObj.position.y] = null;
+			viewController.Destroy(eventArgs.food.gamObj);
+			Score+=eventArgs.food.Calories;
 			CountFood--;
 		}
 		private void CreateWallsAround()
@@ -107,26 +120,20 @@ namespace EasyConsoleSnake.Model
 			{
 				GameObject block = null;
 				if(dir.y == 0)
-					block = new GameObject(VIEW_WALL, new Vector2((i + StartPos.x) * dir.x, StartPos.y));
+					block = new GameObject(Game.VIEW_WALL, new Vector2((i + StartPos.x) * dir.x, StartPos.y));
 
 				if(dir.x == 0)
-					block = new GameObject(VIEW_WALL, new Vector2(StartPos.x, (i + StartPos.y) * dir.y));
+					block = new GameObject(Game.VIEW_WALL, new Vector2(StartPos.x, (i + StartPos.y) * dir.y));
 				Walls[block.position.x, block.position.y] = block;
 				viewController.View(block);
 				//Walls.TryAdd(block.GetHashCode(), block);
 			   
 			}
 		}
-		//Событие, которое происходит постоянно
-		public void Update(object obj)
-		{
-			if (!Lose)
-			{
-				Snake.Move();
-				factoryFood.SpawnFood();
-			}
-		   
-			
-		}
 	}
+	public enum HowCreateFood
+    {
+		EatToSpawn,
+		SpawnForever
+    }
 }

@@ -2,11 +2,11 @@
 {
     public class Node
     {
-        public GameObject data { get; }
+        public GameObject gamObj { get; }
         public Node nextNode { get; set; }
-        public Node(Vector2 pos)
+        public Node(Vector2 vec)
         {
-            data = new GameObject(Snake.SYM_NODE, pos);
+            gamObj = new GameObject(Snake.SYM_NODE, vec);
         }
     }
 }

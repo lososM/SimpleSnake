@@ -2,7 +2,7 @@
 {
     public interface IViewController
     {
-        void Destroy(GameObject obj);
-        void View(GameObject obj);
+        void Destroy(GameObject gamObj);
+        void View(GameObject gamObj);
     }
 }

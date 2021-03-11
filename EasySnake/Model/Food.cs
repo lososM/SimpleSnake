@@ -1,15 +1,21 @@
 ﻿namespace EasyConsoleSnake.Model
 {
-    class Food
+   public class Food
     {
-        public GameObject food { get; }
         public string Name { get; }
+        public GameObject gamObj { get; }
         public int Calories { get; }
-        public Food(string name, int cal, GameObject food)
+        public Food(string name, GameObject gamObj, int cal)
         {
             Name = name;
+            this.gamObj = gamObj;
             Calories = cal;
-            this.food = food;
+        }
+        public Food(GameObject gamObj, int cal)//:base("Default food",gamObj,cal)
+        {
+            Name = "Default Food";
+            this.gamObj = gamObj;
+            Calories = cal;
         }
     }
 }

@@ -18,30 +18,28 @@ namespace EasyConsoleSnake.Model
         {
             direction = new Vector2();
         }
-       
         public GameObject AddNextHead()
         {
             if(Head == null)
             {
                 Head = new Node(new Vector2(Game.WIDTH/2, Game.HEIGHT/2));
                 Count = 1;
-                return Head.data;
+                return Head.gamObj;
             }
-            //если выходит за границы карты создать с другой стороны
             
-            var node = new Node(Head.data.position + direction);
+            var node = new Node(Head.gamObj.position + direction);
 
-            if (node.data.position.x <= -1) node.data.position.x = Game.WIDTH-1;
-            if (node.data.position.x >= Game.WIDTH) node.data.position.x = 0;
+            if (node.gamObj.position.x <= -1) node.gamObj.position.x = Game.WIDTH-1;
+            if (node.gamObj.position.x >= Game.WIDTH) node.gamObj.position.x = 0;
             
-            if (node.data.position.y <= -1) node.data.position.y = Game.HEIGHT-1;
-            if (node.data.position.y >= Game.HEIGHT) node.data.position.y = 0;
+            if (node.gamObj.position.y <= -1) node.gamObj.position.y = Game.HEIGHT-1;
+            if (node.gamObj.position.y >= Game.HEIGHT) node.gamObj.position.y = 0;
 
             Head.nextNode = node;
             if (Tail == null) Tail = Head;
             Head = node;
             Count++;
-            return node.data;
+            return node.gamObj;
         }
         public GameObject RemoveTail()
         {
@@ -58,9 +56,8 @@ namespace EasyConsoleSnake.Model
                 Head = null;
             }
 
-            return node.data;
+            return node.gamObj;
         }
-        
         public IEnumerator GetEnumerator()
         {
             Node node = Tail;

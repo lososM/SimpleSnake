@@ -9,24 +9,28 @@ namespace EasyConsoleSnake
 {
     class Program
     {
-        static Timer timer;
-
         static void Main(string[] args)
         {
 
-            Game.SetValue(50, 30);
-            Console.SetWindowSize(Game.WIDTH, Game.HEIGHT);
-            Console.SetBufferSize(Game.WIDTH, Game.HEIGHT);
+            Game.SetValue(80, 30);
+            Console.SetWindowSize(Game.WIDTH, Game.HEIGHT+2);
+            Console.SetBufferSize(Game.WIDTH, Game.HEIGHT+2);
             Console.CursorVisible = false;
+            
 
             ConsoleCMDView viewCMD = new ConsoleCMDView();
-            GameController gameController = new GameController(viewCMD);
+            GameController gameController = new GameController(viewCMD,HowCreateFood.EatToSpawn);
 
-            timer = new Timer(gameController.Update, null, 0, 100);
+            gameController.Snake.Eat += delegate {
+                Console.SetCursorPosition(2, Game.HEIGHT + 1);
+                Console.Write(gameController.Score);
+            };
 
+            new Timer(gameController.Update, null, 0, 100);
             GetDirection(gameController);
-        }
 
+
+        }
         private static void GetDirection(GameController gameController)
         {
             while (true)
