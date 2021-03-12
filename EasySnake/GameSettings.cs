@@ -11,10 +11,10 @@ namespace EasySnake.Model
         public Vector2 st_Pos { get; set; }
         public int max_Food { get; set; }
         public IFactoryFood FactoryFood { get; set; }
+        public BaseEngineWall EngineWall { get; set; }
         
         //How create walls
         //How achieve win
-        //Start position snake
 
         public  GameSettings(int width,int height)
         {
@@ -27,10 +27,11 @@ namespace EasySnake.Model
             st_Pos = new Vector2(width / 2, height / 2);
             max_Food = Height * Width;
             FactoryFood = new EatToSpawnFood();
+            EngineWall = new BaseEngineWall();
         }
         public GameSettings(int width,int height,
                             int st_long, Vector2 st_pos,int max_food,
-                            IFactoryFood factoryFood)
+                            IFactoryFood factoryFood,BaseEngineWall engine)
         {
             #region validation
             #endregion
@@ -41,6 +42,7 @@ namespace EasySnake.Model
             st_Pos = st_pos;
             max_Food = max_food;
             FactoryFood = factoryFood;
+            EngineWall = engine;
         }
     }
 }

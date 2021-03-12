@@ -23,23 +23,6 @@ namespace EasyConsoleSnake.Model
 		public bool Lose { get; private set; } = false;
 		public int max_Food { get; }
 		//Разные условия победы
-
-
-		public GameController(IViewController viewController)
-		{
-			//хранить некоторые данные в Конфигурационном файле (стартовая длинна змейки)
-			//class or struct с настройками
-			this.viewController = viewController;
-			//            Game.SetValue(80, 30);
-			Foods = new Food[Game.WIDTH, Game.HEIGHT];
-			Walls = new GameObject[Game.WIDTH, Game.HEIGHT];
-			//CreateWallsAround();
-
-			//Snake = new SnakeController(this,);
-			Snake.Eat += AddScoreAndRemoveFood;
-
-			Score = 0;
-		}
 		public GameController(IViewController viewContr, GameSettings settings)
         {
 			viewController = viewContr;
@@ -50,8 +33,10 @@ namespace EasyConsoleSnake.Model
 
 			Snake = new SnakeController(this, settings.st_Pos, settings.st_Long);
 			Snake.Eat += AddScoreAndRemoveFood;
+			//Получить множество стен и отрисовать их
+			settings.EngineWall.GetMapWalls(this);
 
-			CreateWallsAround();
+			//CreateWallsAround();
 
 			Score = 0;
 			max_Food = settings.max_Food;
