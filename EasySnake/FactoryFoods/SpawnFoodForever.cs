@@ -4,11 +4,11 @@ using System;
 
 namespace EasyConsoleSnake.FactoryFoods
 {
-    public class SpawnFoodForever:IFactoryFood
+    public class SpawnFoodForever : IFactoryFood
     {
         Random rnd = new Random();
 
-        private uint max_tick = 10;
+        private uint max_tick { get; } = 10;
         private uint tick = 0;
         //List<Food> create this foods
 
@@ -17,7 +17,6 @@ namespace EasyConsoleSnake.FactoryFoods
         {
             this.max_tick = max_tick;
         }
-        //конструктор, который содержит возможные настройки(max_tick, other...)
         public void SpawnFood(object sender,EventArgs eventArgs)
         {
             

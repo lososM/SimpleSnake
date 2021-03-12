@@ -7,8 +7,34 @@ namespace EasyConsoleSnake.Model
     {
         public const char SYM_NODE = 'o';
 
-        public Dir dir { get; set; }
-        public Vector2 direction { get; set; }
+        public Dir dir { get { return dir; } 
+            set {
+                switch (value)
+                {
+                    case Dir.Right:
+
+                        direction.x = 1;
+                        direction.y = 0;
+                        break;
+
+                    case Dir.Left:
+                        direction.x = -1;
+                        direction.y = 0;
+                        break;
+
+                    case Dir.Up:
+                        direction.x = 0;
+                        direction.y = -1;
+                        break;
+
+                    case Dir.Down:
+                        direction.x = 0;
+                        direction.y = 1;
+                        break;
+                }
+            }
+        }
+        private Vector2 direction;
 
         public Node Head { get; private set; }
         private Node Tail { get; set; }

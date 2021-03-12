@@ -1,12 +1,9 @@
 ﻿using EasyConsoleSnake.Model;
 using EasySnake.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EasySnake
 {
-    public class EngineWallAround:BaseEngineWall
+    public class EWAround:BaseEngineWall
     {
         public override void GetMapWalls(GameController gamController)
         {
@@ -25,8 +22,6 @@ namespace EasySnake
 
 			startPos = new Vector2(Game.WIDTH - 1, 0);
 			CreateWall(dir, startPos, Game.HEIGHT);
-
-
 		}
     }
 }

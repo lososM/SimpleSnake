@@ -1,17 +1,10 @@
 ﻿using EasyConsoleSnake.Model;
 using EasySnake.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EasySnake
 {
     public class BaseEngineWall
     {
-		//есть штуки, которые можно унаследовать и переопределить
-		GameObject[,] Walls = new GameObject[Game.WIDTH, Game.HEIGHT];
 		GameController gamController;
 
 		public virtual void GetMapWalls(GameController gamController)

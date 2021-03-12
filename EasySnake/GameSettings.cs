@@ -12,9 +12,6 @@ namespace EasySnake.Model
         public int max_Food { get; set; }
         public IFactoryFood FactoryFood { get; set; }
         public BaseEngineWall EngineWall { get; set; }
-        
-        //How create walls
-        //How achieve win
 
         public  GameSettings(int width,int height)
         {

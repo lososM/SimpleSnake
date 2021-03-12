@@ -5,6 +5,7 @@ using EasyConsoleSnake.FactoryFoods;
 using EasyConsoleSnake.Model;
 using EasyConsoleSnake.veiw;
 using EasySnake;
+using EasySnake.EngineWall;
 using EasySnake.Model;
 
 namespace EasyConsoleSnake
@@ -13,13 +14,12 @@ namespace EasyConsoleSnake
     {
         static void Main(string[] args)
         {
-            //Create FactoryFood with your settings
+            //Create FactoryFood and Map for game
             IFactoryFood factory = new SpawnFoodForever(20);
-            BaseEngineWall engineWall = new BaseEngineWall();
+            BaseEngineWall engineWall = new EWAround();
 
             //Create settings for game
-            GameSettings settings = new GameSettings(80, 30, 5, new Vector2(10,2), 3, factory,engineWall);
-            GameSettings settings2 = new GameSettings(80, 30);
+            GameSettings settings = new GameSettings(40, 30, 5, new Vector2(10,2), 3, factory,engineWall);
 
             ConsoleCMDView viewCMD = new ConsoleCMDView();
 
@@ -39,14 +39,13 @@ namespace EasyConsoleSnake
                 Console.SetCursorPosition(Game.WIDTH / 2 - 5, Game.HEIGHT / 2 );
                 Console.Write("Game Over");
             };
-
+            // or Thread.Sleep
             new Timer(gameController.Update, null, 0, 100);
 
             GetDirection(gameController);
         }
         private static void GetDirection(GameController gameController)
         {
-          //  Console.SetCursorPosition(1,1);
             while (true)
             {
                 var input = Console.ReadKey(true);

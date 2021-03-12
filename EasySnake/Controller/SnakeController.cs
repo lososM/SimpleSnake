@@ -62,35 +62,7 @@ namespace EasyConsoleSnake.Controller
         }
         public void Roatate(Dir dir)
         {
-            if (snake.dir != dir)
-            {
-                switch (dir)
-                {
-                    case Dir.Right:
-
-                        snake.direction.x = 1;
-                        snake.direction.y = 0;
-                        break;
-
-                    case Dir.Left:
-                        snake.direction.x = -1;
-                        snake.direction.y = 0;
-                        break;
-
-                    case Dir.Up:
-                        snake.direction.x = 0;
-                        snake.direction.y = -1;
-                        break;
-
-                    case Dir.Down:
-                        snake.direction.x = 0;
-                        snake.direction.y = 1;
-                        break;
-                }
-
-                snake.dir = dir;
-            }
-
+            snake.dir = dir;
         }
     }
 }
