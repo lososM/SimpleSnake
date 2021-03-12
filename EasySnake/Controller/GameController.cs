@@ -35,7 +35,7 @@ namespace EasyConsoleSnake.Model
 			Walls = new GameObject[Game.WIDTH, Game.HEIGHT];
 			//CreateWallsAround();
 
-			Snake = new SnakeController(3, this);
+			//Snake = new SnakeController(this,);
 			Snake.Eat += AddScoreAndRemoveFood;
 
 			Score = 0;
@@ -48,7 +48,7 @@ namespace EasyConsoleSnake.Model
 			Foods = new Food[settings.Width, settings.Height];
 			Walls = new GameObject[settings.Width, settings.Height];
 
-			Snake = new SnakeController(settings.st_Long, this);
+			Snake = new SnakeController(this, settings.st_Pos, settings.st_Long);
 			Snake.Eat += AddScoreAndRemoveFood;
 
 			CreateWallsAround();

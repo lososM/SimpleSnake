@@ -18,6 +18,12 @@ namespace EasyConsoleSnake.Model
         {
             direction = new Vector2();
         }
+        public Snake(Vector2 st_pos)
+        {
+            direction = new Vector2();
+            Head = new Node(st_pos);
+            Count = 1;
+        }
         public GameObject AddNextHead()
         {
             if(Head == null)

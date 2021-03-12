@@ -14,9 +14,10 @@ namespace EasyConsoleSnake
         {
             //Create FactoryFood with your settings
             IFactoryFood factory = new SpawnFoodForever(20);
+            
 
             //Create settings for game
-            GameSettings settings = new GameSettings(50, 50,5,3,factory);
+            GameSettings settings = new GameSettings(50, 50, 5, new Vector2(10,2), 3, factory);
             GameSettings settings2 = new GameSettings(80, 30);
 
             ConsoleCMDView viewCMD = new ConsoleCMDView();

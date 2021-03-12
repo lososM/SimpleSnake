@@ -5,7 +5,7 @@ using System;
 namespace EasyConsoleSnake.FactoryFoods
 {
     public class EatToSpawnFood: IFactoryFood
-    {
+    {       
         Random rnd = new Random();
         public void SpawnFood(object sender,EventArgsEat eventArgs)
         {

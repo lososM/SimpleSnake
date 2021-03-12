@@ -9,10 +9,13 @@ namespace EasyConsoleSnake.Controller
         public event EventHandler<EventArgsEat> Eat = delegate { };
         public Snake snake { get; }
         GameController gameController { get; }
-        public SnakeController(int sn_long,GameController gameController)
+        public SnakeController(GameController gameController, Vector2 st_pos, int sn_long = 3)
         {
             this.gameController = gameController;
-            snake = new Snake();
+
+            
+            sn_long--;
+            snake = new Snake(st_pos);
 
             Roatate(Dir.Right);
 
