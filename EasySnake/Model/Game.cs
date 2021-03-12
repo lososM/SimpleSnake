@@ -7,6 +7,8 @@
 
         public static int WIDTH { get; private set; } 
         public static int HEIGHT { get; private set; }
+        //ссылка на GameController
+        //TODO: change this
         public static void SetValue(int width,int height)
         {
             WIDTH = width;

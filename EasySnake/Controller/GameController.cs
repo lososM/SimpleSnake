@@ -19,17 +19,18 @@ namespace EasyConsoleSnake.Model
 		public IViewController viewController { get; }
 
 		public int CountFood { get; private set; }
-		public int Score { get; private set; }
+		public int Score { get; private set; }// > 0 forever
 		public bool Lose { get; private set; } = false;
+		public int max_Food { get; }
 		//Разные условия победы
 
 
-		public GameController(IViewController viewController,HowCreateFood createFood)
+		public GameController(IViewController viewController)
 		{
 			//хранить некоторые данные в Конфигурационном файле (стартовая длинна змейки)
 			//class or struct с настройками
 			this.viewController = viewController;
-
+			//            Game.SetValue(80, 30);
 			Foods = new Food[Game.WIDTH, Game.HEIGHT];
 			Walls = new GameObject[Game.WIDTH, Game.HEIGHT];
 			//CreateWallsAround();
@@ -38,19 +39,23 @@ namespace EasyConsoleSnake.Model
 			Snake.Eat += AddScoreAndRemoveFood;
 
 			Score = 0;
+		}
+		public GameController(IViewController viewContr, GameSettings settings)
+        {
+			viewController = viewContr;
+			Game.SetValue(settings.Width, settings.Height);
 
-			if (createFood == HowCreateFood.EatToSpawn)
-            {
-				IFactoryFood tempFactoryFood = new EatToSpawnFood();
-				tempFactoryFood.StartFactoryFood(this);
-			}
-			else if(createFood == HowCreateFood.SpawnForever)
-            {
-				IFactoryFood tempFactoryFood = new SpawnFoodForever();
-				tempFactoryFood.StartFactoryFood(this);
-			}
+			Foods = new Food[settings.Width, settings.Height];
+			Walls = new GameObject[settings.Width, settings.Height];
 
+			Snake = new SnakeController(settings.st_Long, this);
+			Snake.Eat += AddScoreAndRemoveFood;
 
+			CreateWallsAround();
+
+			Score = 0;
+			max_Food = settings.max_Food;
+			settings.FactoryFood.StartFactoryFood(this);
 		}
 
 		//Событие, которое происходит постоянно
@@ -131,9 +136,4 @@ namespace EasyConsoleSnake.Model
 			}
 		}
 	}
-	public enum HowCreateFood
-    {
-		EatToSpawn,
-		SpawnForever
-    }
 }

@@ -16,7 +16,7 @@ namespace EasyConsoleSnake.FactoryFoods
                     Vector2 pos = GeneratePosition(gameController);
 
                     var gamObj = new GameObject(Game.VIEW_FOOD, pos);
-                    var food = new Food(gamObj, 2); 
+                    var food = new Food(gamObj, 1); 
                     gameController.AddFood(food);
                 }
             }                      

@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Threading;
+using EasyConsoleSnake.FactoryFoods;
 using EasyConsoleSnake.Model;
 using EasyConsoleSnake.veiw;
 using EasySnake.Model;
@@ -11,15 +12,20 @@ namespace EasyConsoleSnake
     {
         static void Main(string[] args)
         {
+            //Create FactoryFood with your settings
+            IFactoryFood factory = new SpawnFoodForever(20);
 
-            Game.SetValue(80, 30);
-            Console.SetWindowSize(Game.WIDTH, Game.HEIGHT+2);
-            Console.SetBufferSize(Game.WIDTH, Game.HEIGHT+2);
-            Console.CursorVisible = false;
-            
+            //Create settings for game
+            GameSettings settings = new GameSettings(50, 50,5,3,factory);
+            GameSettings settings2 = new GameSettings(80, 30);
 
             ConsoleCMDView viewCMD = new ConsoleCMDView();
-            GameController gameController = new GameController(viewCMD,HowCreateFood.EatToSpawn);
+
+            Console.SetWindowSize(settings.Width, settings.Height+2);
+            Console.SetBufferSize(settings.Width, settings.Height+2);
+            Console.CursorVisible = false;
+            
+            GameController gameController = new GameController(viewCMD,settings);
 
             gameController.Snake.Eat += delegate {
                 Console.SetCursorPosition(2, Game.HEIGHT + 1);
@@ -27,21 +33,21 @@ namespace EasyConsoleSnake
             };
             gameController.EventGameOver += delegate
             {
-              //  Console.Clear();
+                //stop timer
                 Console.SetCursorPosition(Game.WIDTH / 2 - 5, Game.HEIGHT / 2 );
                 Console.Write("Game Over");
             };
 
             new Timer(gameController.Update, null, 0, 100);
+
             GetDirection(gameController);
-
-
         }
         private static void GetDirection(GameController gameController)
         {
+          //  Console.SetCursorPosition(1,1);
             while (true)
             {
-                var input = Console.ReadKey(false);
+                var input = Console.ReadKey(true);
 
                 ConsoleKey inputDir = input.Key;
                 

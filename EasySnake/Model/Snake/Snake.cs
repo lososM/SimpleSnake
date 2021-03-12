@@ -28,7 +28,7 @@ namespace EasyConsoleSnake.Model
             }
             
             var node = new Node(Head.gamObj.position + direction);
-
+            //node.gamObj.position.x % Game.WIDTH
             if (node.gamObj.position.x <= -1) node.gamObj.position.x = Game.WIDTH-1;
             if (node.gamObj.position.x >= Game.WIDTH) node.gamObj.position.x = 0;
             

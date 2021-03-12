@@ -6,30 +6,43 @@ namespace EasyConsoleSnake.FactoryFoods
 {
     public class SpawnFoodForever:IFactoryFood
     {
+        Random rnd = new Random();
+
         private uint max_tick = 10;
         private uint tick = 0;
-//        private uint max_cout_food = uint.MaxValue;
-        Random rnd = new Random();
+        //List<Food> create this foods
+
+        public SpawnFoodForever() { }
+        public SpawnFoodForever(uint max_tick)
+        {
+            this.max_tick = max_tick;
+        }
+        //конструктор, который содержит возможные настройки(max_tick, other...)
         public void SpawnFood(object sender,EventArgs eventArgs)
         {
+            
             if(sender is GameController gameController)
-                if(tick <= 0)
-                {
-                    Vector2 pos = GeneratePosition(gameController);
+            {
+                if(gameController.CountFood < gameController.max_Food)
+                    if (tick <= 0)
+                    {
+                        Vector2 pos = GeneratePosition(gameController);
 
-                    var gamObj = new GameObject(Game.VIEW_FOOD, pos);
-                    var food = new Food(gamObj, 1); //создовать случайную по каллорийности пищу
-                    gameController.AddFood(food);
+                        var gamObj = new GameObject(Game.VIEW_FOOD, pos);
+                        var food = new Food(gamObj, 1); 
+                        gameController.AddFood(food);
 
-                    tick = max_tick;
-                }
-                else
-                {
-                    tick--;
-                }
+                        tick = max_tick;
+                    }
+                    else
+                    {
+                        tick--;
+                    }
+            }
+                
         }
 
-        public void StartFactoryFood(GameController gameController)//класс, который содержит возможные настройки(max_tick)
+        public void StartFactoryFood(GameController gameController)
         {
             gameController.EventUpdate += SpawnFood;
             SpawnFood(gameController, null);
